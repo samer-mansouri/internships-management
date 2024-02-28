@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+      MYSQL_DATABASE: internships_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql # Map './data' from the host to '/var/lib/mysql' in the container
+
+volumes:
+  my-db:
+    driver: local

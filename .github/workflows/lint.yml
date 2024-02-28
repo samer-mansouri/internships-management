@@ -1,0 +1,21 @@
+name: Lint Code Base
+
+on: [push]
+
+jobs:
+  build:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '16.20.2' # Specify your Node.js version here
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run lint
+      run: npx eslint .
