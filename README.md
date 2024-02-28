@@ -8,6 +8,7 @@ This project is built with the following technologies:
 
 - ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white) - Evented I/O for the backend.
 - ![Express.js](https://img.shields.io/badge/-Express.js-000000?style=flat-square&logo=express&logoColor=white) - Web application framework for Node.js.
+- ![TypeORM](https://img.shields.io/badge/-TypeORM-000000?style=flat-square&logo=typeorm&logoColor=white) - An ORM that can run in NodeJS, Browser, Cordova, PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron platforms.
 - ![MySQL](https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white) - Relational database used to store user and internship data.
 - ![JWT](https://img.shields.io/badge/-JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white) - Used for securely transmitting information between parties as a JSON object.
 - ![Joi](https://img.shields.io/badge/-Joi-FF69B4?style=flat-square&logoColor=white) - Object schema validation.
