@@ -5,7 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
-// const routes = require('./routes'); // Import routes
+const routes = require('./routes'); // Import routes
 // const swaggerUi = require('swagger-ui-express');
 //const swaggerSpec = require('./swaggerConfig');
 // const docsElements = require('./docs');
@@ -39,7 +39,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Use the centralized routes
-// app.use(routes);
+app.use(routes);
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(docsElements));
 
 

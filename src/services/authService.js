@@ -35,18 +35,18 @@ let getUserWithEmailAndPassword = async (email, password) => {
     }
 }
 
-let saveUserRefreshToken = async (_id, refreshToken) => {
-    try {
-        const userRepository = getRepository(User);
-        return await userRepository.save({
-            id: _id,
-            refreshToken
-        });
-    }
-    catch (error) {
-        throw new Error(error);
-    }
-}
+// let saveUserRefreshToken = async (_id, refreshToken) => {
+//     try {
+//         const userRepository = getRepository(User);
+//         return await userRepository.save({
+//             id: _id,
+//             refreshToken
+//         });
+//     }
+//     catch (error) {
+//         throw new Error(error);
+//     }
+// }
 
 let getUserWithIdAndRefreshToken = async (_id, refreshToken) => {
     try {
@@ -107,7 +107,7 @@ module.exports = {
     createUser,
     getUser,
     getUserWithEmailAndPassword, 
-    saveUserRefreshToken,
+    // saveUserRefreshToken,
     checkForUserRefreshTokenAndRemoveIt,
     getUserWithIdAndRefreshToken,
     checkUserRole

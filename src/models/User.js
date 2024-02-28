@@ -7,8 +7,8 @@ const Gender = {
 
 const Role = {
   Admin: 'admin',
-  Former: 'former',
-  Student: 'student',
+  Intern: 'intern',
+  Encadrant: 'encadrant',
 };
 
 module.exports = new EntitySchema({

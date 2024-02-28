@@ -20,9 +20,10 @@ exports.connect = () => {
             User
         ],
         synchronize: true, // Automatically creates the database schema
-      }).then(connection => {
+      }).then(() => {
+        //.then((connection) => {)
         // Here you can start to work with your entities
-        console.log("Connection established with success", connection);
+        console.log("Connection established with success");
       }).catch(error => {
         console.log(error);
         process.exit(1);
