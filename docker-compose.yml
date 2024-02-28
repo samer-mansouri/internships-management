@@ -13,6 +13,12 @@ services:
     volumes:
       - ./data:/var/lib/mysql # Map './data' from the host to '/var/lib/mysql' in the container
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
 volumes:
   my-db:
     driver: local
