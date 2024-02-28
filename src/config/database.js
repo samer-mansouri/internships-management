@@ -3,10 +3,8 @@ const { createConnection } = require("typeorm");
 
 const { MYSQL_DATABASE, MYSQL_PASSWORD, MYSQL_USER } = process.env;
 
-const User = require('../models/User');
-const DemandeDeStage = require('../models/DemandeDeStage');
-const SujetDeStage = require('../models/SujetDeStage');
-const Document = require('../models/Document');
+const  models = require('../models');
+
 // Create a connection to the database
 exports.connect = () => {
 
@@ -17,13 +15,7 @@ exports.connect = () => {
         username: MYSQL_USER,// Database username
         password: MYSQL_PASSWORD, // Database password
         database: MYSQL_DATABASE , // Database name
-        entities: [
-          // Specify your entities here
-            User,
-            DemandeDeStage,
-            SujetDeStage,
-            Document
-        ],
+        entities: models,
         synchronize: true, // Automatically creates the database schema
       }).then(() => {
         //.then((connection) => {)

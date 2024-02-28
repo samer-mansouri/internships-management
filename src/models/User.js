@@ -48,7 +48,11 @@ module.exports = new EntitySchema({
     role: {
       type: "enum",
       enum: Role
-    }
+    },
+    relatedRoleId: {
+      type: "int",
+      nullable: true
+    },
   },
   relations: {
     // Define relations here
