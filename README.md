@@ -64,7 +64,7 @@ npm run dev
 ```
 
 ### Usage
-After starting the server, you can begin using the E-learning platform by accessing http://localhost:5000 in your web browser or through tools like Postman for API interaction.
+After starting the server, you can begin using the Internships Management Platform by accessing  http://localhost:5000 in your web browser or through tools like Postman for API interaction.
 
 ### License
 This project is licensed under the ISC License - see the LICENSE.md file for details.
