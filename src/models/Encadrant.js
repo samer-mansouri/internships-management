@@ -10,7 +10,8 @@ module.exports = new EntitySchema({
             generated: true
         },
         domainesExpertise: {
-            type: "text"
+            type: "text",
+            nullable: true
         },
 
     },

@@ -26,6 +26,10 @@ module.exports = new EntitySchema({
         dateDeCreation: {
             type: "datetime"
         },
+        extension: {
+            type: "varchar",
+            length: 255
+        },
         relationShipId: {
             type: "int",
             nullable: true

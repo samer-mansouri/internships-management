@@ -13,22 +13,27 @@ module.exports = new EntitySchema({
         compétences: {
             //Comma separated string
             type: "text",
+            nullable: true
         },
         formation: {
             type: "varchar",
-            length: 255
+            length: 255,
+            nullable: true
         },
         faculté: {
             type: "varchar",
-            length: 255
+            length: 255,
+            nullable: true
         },
         université: {
             type: "varchar",
-            length: 255
+            length: 255,
+            nullable: true
         },
         niveauEtude: {
             type: "varchar",
-            length: 255
+            length: 255,
+            nullable: true
         }
     },
     relations: {

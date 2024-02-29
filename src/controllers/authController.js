@@ -4,7 +4,8 @@ const {
     validateUser,
     initializeUser,
     extractUserDataFromRequest,
-    verifyEmailAddresUniqueness
+    verifyEmailAddresUniqueness,
+    assignModelBasedOnRole
 } = require('../helpers/authHelper');
 
 const {
@@ -12,7 +13,9 @@ const {
     getUser,
     // saveUserRefreshToken,
     // checkForUserRefreshTokenAndRemoveIt,
-    // getUserWithIdAndRefreshToken
+    // getUserWithIdAndRefreshToken,
+    updateUserRelatedRoleId,
+    returnUserWithItsRelatedRole
 } = require('../services/authService');
 
 const {
@@ -27,34 +30,47 @@ const {
     // verifyToken
 } = require('../helpers/tokenHelper');
 
-let signupUser = async (req, res) => {
-
+const signupUser = async (req, res) => {
     try {
-        const { error } = validateUser(extractUserDataFromRequest(req));
+        const userData = extractUserDataFromRequest(req);
+        const { error } = validateUser(userData);
         if (error) {
             return sendResponse(res, 400, false, error.details[0].message);
         }
 
-        const isEmailUnique = await verifyEmailAddresUniqueness(req.body.email);
+        const isEmailUnique = await verifyEmailAddresUniqueness(userData.email);
         if (!isEmailUnique) {
             return sendResponse(res, 400, false, 'Email already exists');
-        } else {
-            let user = initializeUser(extractUserDataFromRequest(req));
-
-            user.password = await hashPassword(user.password);
-
-            user = await createUser(user);
-            delete user.password;
-
-            return sendResponse(res, 201, true, user, 'User created successfully');
         }
 
-    } catch(err) {
-        console.log(err)
-        res.status(500).send({"Error": "Internal Server Error"})
-    }
+        // Initialize user and hash password directly in the object to avoid re-assignment
+        let user = {
+            ...initializeUser(userData),
+            password: await hashPassword(userData.password)
+        };
 
-}
+        user = await createUser(user);
+
+        // Simplify role handling and assignment model creation
+        if (user.role !== "admin") {
+            const assignedModel = await assignModelBasedOnRole(user.role, user.id);
+            console.log(assignedModel);
+
+            // Only update the user if an assigned model is created
+            if (assignedModel) {
+                user = await updateUserRelatedRoleId(user.id, assignedModel.id);
+            }
+        }
+
+        user = await returnUserWithItsRelatedRole(user.id, user.role);
+        delete user.password; // Ensure password is not returned
+
+        return sendResponse(res, 201, true, 'User created successfully', user);
+    } catch (err) {
+        console.error(err); // Use console.error for errors
+        return res.status(500).send({"Error": "Internal Server Error"});
+    }
+};
 
 let loginUser = async (req, res) => {
     try {

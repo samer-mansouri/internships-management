@@ -2,6 +2,10 @@ const Joi = require('joi');
 const { getRepository } = require("typeorm");
 const User = require("../models/User"); // Make sure to adjust this path to your User entity schema
 const { getUser } = require('../services/authService');
+const {
+  createIntern,
+  createEncadrant
+} = require('../services/authService');
 
 // Enumerations
 const Gender = Object.freeze({
@@ -11,8 +15,8 @@ const Gender = Object.freeze({
 
 const Role = Object.freeze({
   Admin: 'admin',
-  Former: 'former',
-  Student: 'student',
+  Intern: 'intern',
+  Encadrant: 'encadrant',
 });
 
 let validateUser = (user) => {
@@ -110,10 +114,29 @@ let verifyEmailAddresUniqueness = async (email) => {
     }
 
 }
+
+let assignModelBasedOnRole = async (role, userId) => {
+
+    if (role === Role.Intern) {
+        return await createIntern({
+          user: userId
+        });
+    }
+    else if (role === Role.Encadrant) {
+        return await createEncadrant({
+          user: userId
+        });
+    }
+    else {
+
+        return null;
+    }
+}
   
 module.exports = {
     validateUser,
     initializeUser,
     extractUserDataFromRequest,
-    verifyEmailAddresUniqueness
+    verifyEmailAddresUniqueness,
+    assignModelBasedOnRole
 }
