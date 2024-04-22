@@ -95,11 +95,44 @@ let updateUser = async (userId, userData) => {
     }
 };
 
+let updateUserRelatedRoleData = async (userId, relatedRoleData) => {
+    try {
+        const userRepository = getRepository(User);
+        const user = await userRepository.findOne({ where: { id: userId } });
+        console.log("User", user);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        const roleRepositoryMap = {
+            intern: getRepository(Intern),
+            encadrant: getRepository(Encadrant),
+        };
+
+        const roleRepository = roleRepositoryMap[user.role];
+        if (roleRepository) {
+            const relatedRole = await roleRepository.findOne({ where: { id: user.relatedRoleId } });
+            console.log("relatedRole", relatedRole);
+            if (relatedRole) {
+                await roleRepository.save({ ...relatedRole, ...relatedRoleData });
+            } else {
+                await roleRepository.save({ ...relatedRoleData, user: userId });
+            }
+        }
+
+        return true;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+}
+
 
 
 
 module.exports = {
     getUsersList,
     deleteUser,
-    updateUser
+    updateUser,
+    updateUserRelatedRoleData
 };

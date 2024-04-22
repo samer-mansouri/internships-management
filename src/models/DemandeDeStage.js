@@ -22,6 +22,7 @@ module.exports = new EntitySchema({
         },
         dateSoumission: {
             type: "datetime",
+            default: () => "CURRENT_TIMESTAMP"
         },
         etat: {
             type: "enum",

@@ -30,11 +30,12 @@ module.exports = new EntitySchema({
             enum: Domaine
         },
         dateDeCreation: {
-            type: "datetime"
+            type: "datetime",
+            default: () => "CURRENT_TIMESTAMP"
         },
         estDisponible: {
             type: "boolean",
-            default: true
+            default: true,
         }
     },
     relations: {

@@ -1,6 +1,6 @@
 const { sendResponse } = require('../helpers/responseHelper');
 
-const { getUsersList, deleteUser, updateUser } = require('../services/usersService');
+const { getUsersList, deleteUser, updateUser, updateUserRelatedRoleData } = require('../services/usersService');
 
 const getUsers = async (req, res) => {
     try {
@@ -41,8 +41,21 @@ const editUser = async (req, res) => {
     }
 }
 
+const editUserRelatedRole = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const relatedRoleData = req.body;
+
+        const updatedUser = await updateUserRelatedRoleData(userId, relatedRoleData);
+        return sendResponse(res, 200, true, 'User related role updated successfully', updatedUser);
+    } catch (error) {
+        return sendResponse(res, 500, false, error.message);
+    }
+}
+
 module.exports = {
     getUsers,
     removeUser,
-    editUser
+    editUser,
+    editUserRelatedRole
 };
