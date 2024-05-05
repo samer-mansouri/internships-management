@@ -1,5 +1,6 @@
 const { EntitySchema } = require("typeorm");
 
+
 const Domaine = {
     Observation: "OBSERVATION",
     Operationnel: "OPERATIONNEL",
@@ -36,7 +37,7 @@ module.exports = new EntitySchema({
         estDisponible: {
             type: "boolean",
             default: true,
-        }
+        },
     },
     relations: {
         // Define relations here

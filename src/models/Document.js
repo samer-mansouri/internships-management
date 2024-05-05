@@ -24,7 +24,8 @@ module.exports = new EntitySchema({
             length: 255
         },
         dateDeCreation: {
-            type: "datetime"
+            type: "datetime",
+            default: () => "CURRENT_TIMESTAMP"
         },
         extension: {
             type: "varchar",
@@ -37,7 +38,25 @@ module.exports = new EntitySchema({
         relationShipType: {
             type: "enum",
             enum: RelationShip
+        },
+        size: {
+            type: "int",
+            nullable: true
         }
     },
+    relations: () => {
+        const relations = {};
+        Object.values(RelationShip).forEach(type => {
+            relations[type] = {
+                target: type === RelationShip.DEMANDE_DE_STAGE ? "DemandeDeStage" : "SujetDeStage",
+                type: "many-to-one",
+                joinColumn: { name: "relationShipId" },
+                inverseJoinColumn: { name: "id" },
+                nullable: true,
+                eager: true
+            };
+        });
+        return relations;
+    }
    
 });

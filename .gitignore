@@ -1,5 +1,6 @@
 # Dependency directories
 node_modules/
+public/uploads/
 
 # Environment configuration files
 #.env

@@ -5,8 +5,14 @@ const {
     getDemandeDeStage,
     getDemandeDeStagesList,
     updateDemandeDeStage,
-    deleteDemandeDeStage
+    deleteDemandeDeStage,
+    demandeDeStageAddDocument
 } = require('../services/demandeDeStageService');
+
+
+const { createDocument,
+    updateDocument,
+ } = require('../services/documentService');
 
 
 const addDemandeDeStage = async (req, res) => {
@@ -35,6 +41,7 @@ const getDemandeDeStageById = async (req, res) => {
 const getDemandeDeStages = async (req, res) => {
     try {
         const demandeDeStages = await getDemandeDeStagesList();
+        console.log(demandeDeStages.length);
         return sendResponse(res, 200, true, 'Demande de stages retrieved successfully', demandeDeStages);
     } catch (error) {
         return sendResponse(res, 500, false, error.message);
@@ -63,11 +70,45 @@ const removeDemandeDeStage = async (req, res) => {
     }
 }
 
+const addDocumentToDemandeDeStage = async (req, res) => {
+    //file upload logic, req.file contains the file
+    try {
+        const demandeDeStageId = req.params.id;
+        // console.log(req.file);
+        // console.log(req.body);  
+        try {
+            const documentData = {
+                nom: req.file.originalname,
+                chemin: req.file.path,
+                extension: req.file.mimetype,
+                size: req.file.size
+            }
+            
+            console.log(documentData);
+            const addedDocument = await createDocument(documentData);
+            // const documentData = req.body;
+            const updatedDemandeDeStage = await demandeDeStageAddDocument(demandeDeStageId, documentData);
+            console.log(updatedDemandeDeStage);
+            addedDocument.relationShipId = updatedDemandeDeStage.id;
+            addedDocument.relationShipType = "DemandeDeStage";
+
+            updateDocument(addedDocument.id, addedDocument);
+            
+            return sendResponse(res, 200, true, 'Document added to demande de stage successfully', updatedDemandeDeStage);
+        } catch (error) {
+            console.log(error);
+        }
+       
+    } catch (error) {
+        return sendResponse(res, 500, false, error.message);
+    }
+}
 
 module.exports = {
     addDemandeDeStage,
     getDemandeDeStageById,
     getDemandeDeStages,
     updateDemandeDeStageById,
-    removeDemandeDeStage
+    removeDemandeDeStage,
+    addDocumentToDemandeDeStage
 };

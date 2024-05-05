@@ -15,7 +15,7 @@ const app = express();
 app.use(helmet());
 app.use(bodyParser.json());
 
-//app.use('/uploads/profile_pictures', express.static('uploads/profile_pictures'));
+app.use('/public/uploads', express.static('public/uploads'));
 app.use(cors());
 app.use(function (req, res, next) {
 
