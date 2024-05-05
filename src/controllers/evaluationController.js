@@ -4,7 +4,8 @@ const {
     getEvaluation,
     getEvaluationsList,
     updateEvaluation,
-    deleteEvaluation
+    deleteEvaluation,
+    getSpeceficStudentEvaluation
 } = require('../services/evaluationService');
 
 const addEvaluation = async (req, res) => {
@@ -61,11 +62,23 @@ const removeEvaluation = async (req, res) => {
     }
 }
 
+const getSpeceficStudentEvaluationFunc = async (req, res) => {
+    try {
+        const studentId = req.params.studentId;
+        const evaluations = await getSpeceficStudentEvaluation(studentId);
+        return sendResponse(res, 200, true, 'Evaluations retrieved successfully', evaluations);
+    } catch (error) {
+        return sendResponse(res, 500, false, error.message);
+    }
+}
+
 
 module.exports = {
     addEvaluation,
     getEvaluationById,
     getEvaluations,
     updateEvaluationById,
-    removeEvaluation
+    removeEvaluation,
+    getSpeceficStudentEvaluation,
+    getSpeceficStudentEvaluationFunc
 };

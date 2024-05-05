@@ -15,16 +15,13 @@ module.exports = new EntitySchema({
             type: "int",
             generated: true
         },
-        title: {
-            type: "varchar",
-            length: 255
-        },
         description: {
             type: "text"
         },
         status: {
             type: "enum",
-            enum: status
+            enum: status,
+            default: status.OPEN
         },
         createdAt: {
             type: "datetime",

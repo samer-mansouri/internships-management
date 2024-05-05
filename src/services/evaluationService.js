@@ -48,11 +48,21 @@ let deleteEvaluation = async (id) => {
     }
 }
 
+let getSpeceficStudentEvaluation = async (studentId) => {
+    try {
+        const evaluationRepository = getRepository(Evaluation);
+        return await evaluationRepository.find({ where: { stagiaire : studentId } });
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 module.exports = {
     createEvaluation,
     getEvaluation,
     getEvaluationsList,
     updateEvaluation,
-    deleteEvaluation
+    deleteEvaluation,
+    getSpeceficStudentEvaluation
 };
 

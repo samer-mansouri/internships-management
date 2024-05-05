@@ -16,7 +16,7 @@ module.exports = new EntitySchema({
 
         note: {
             type: "int",
-            nullable: true
+            nullable: true,
         },
 
         createdAt: {
